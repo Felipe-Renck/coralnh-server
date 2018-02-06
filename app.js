@@ -4,6 +4,8 @@ const app = express();
 const email = require('./email/email.js');
 const common = require('./common/util.js');
 
+var dbConnection = require('./dbconnection/dbconnection.js')
+
 var port = process.env.PORT || 8080;
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -27,7 +29,9 @@ app.post('/email', function (req, res, next) {
   Email.send().then(x => res.status(common.ResolveStatus(x)).send(x.message)).catch(x => res.status(common.ResolveStatus(x)).send(x.message));
 });
 
+dbConnection.connectDatabase();
+
 app.listen(3002, function () {
-  console.log('Vertical Web app service listening')
+  console.log('Vertical Web app service listening on 3002');
 });
 
