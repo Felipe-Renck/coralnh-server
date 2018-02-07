@@ -26,7 +26,7 @@ app.get('/', function (req, res, next) {
 app.post('/email', function (req, res, next) {
   var json = req.body;
   var Email = new email.Email(json.email, json.subject, json.message, 'Coral Jovem Novo Hamburgo');
-  Email.send().then(x => res.status(common.ResolveStatus(x)).send(x.message)).catch(x => res.status(common.ResolveStatus(x)).send(x.message));
+  Email.send().then(x => {res.send(common.ResolveStatus(x))}).catch(x => res.send(common.ResolveStatus(x)));
 });
 
 dbConnection.connectDatabase();
