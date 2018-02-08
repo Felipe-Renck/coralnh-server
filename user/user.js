@@ -4,11 +4,11 @@ var User = require('../models/User.js');
 /* SAVE USER */
 function SaveUser(user) {
     console.log(user);
-    
+
     var newUser = User({
         nome: user.Nome,
         data_nascimento: user.DataNascimento,
-        tipo_sange: user.TipoSanguineo,
+        tipo_sangue: user.TipoSanguineo,
         RG: user.RG,
         emissor: user.OrgaoEmissorRG,
         email: user.Email,
