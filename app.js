@@ -33,9 +33,7 @@ app.post('/email', function (req, res, next) {
 app.post('/user', function (req, res, next) {
   var newUser = req.body;
   console.log(newUser);
-  user.SaveUser(newUser, req, res, );
-  if (err) { return next(err); }
-  res.json(post);
+  user.SaveUser(newUser);
 });
 
 dbConnection.connectDatabase();
