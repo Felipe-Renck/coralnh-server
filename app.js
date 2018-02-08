@@ -2,6 +2,7 @@ var bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
 const email = require('./email/email.js');
+const user = require('./user/user.js')
 const common = require('./common/util.js');
 
 var dbConnection = require('./dbconnection/dbconnection.js')
@@ -27,6 +28,14 @@ app.post('/email', function (req, res, next) {
   var json = req.body;
   var Email = new email.Email(json.email, json.subject, json.message, 'Coral Jovem Novo Hamburgo');
   Email.send().then(x => res.status(common.ResolveStatus(x)).send(x.message)).catch(x => res.status(common.ResolveStatus(x)).send(x.message));
+});
+
+app.post('/user', function (req, res, next) {
+  var newUser = req.body;
+  console.log(newUser);
+  user.SaveUser(newUser, req, res, );
+  if (err) { return next(err); }
+  res.json(post);
 });
 
 dbConnection.connectDatabase();
