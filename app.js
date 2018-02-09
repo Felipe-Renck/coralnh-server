@@ -34,6 +34,7 @@ app.post('/user', function (req, res, next) {
   var newUser = req.body;
   console.log(newUser);
   user.SaveUser(newUser);
+  res.send("200");
 });
 
 dbConnection.connectDatabase();
