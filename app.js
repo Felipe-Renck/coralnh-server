@@ -33,8 +33,7 @@ app.post('/email', function (req, res, next) {
 app.post('/user', function (req, res, next) {
   var newUser = req.body;
   console.log(newUser);
-  user.SaveUser(newUser);
-  res.send("200");
+  user.SaveUser(newUser).then(x => {res.send(common.ResolveStatus(x))}).catch(x => res.send(common.ResolveStatus(x)));
 });
 
 dbConnection.connectDatabase();

@@ -1,9 +1,9 @@
 function ResolveStatus(result){
     debugger;
-    if(result.accepted != undefined){
+    if(result.accepted != undefined || result == "200"){
         return 200;
     }
-    else if (result.rejected != undefined) {
+    else if (result.rejected != undefined || result != "200") {
         return 500;
     }
     else{
