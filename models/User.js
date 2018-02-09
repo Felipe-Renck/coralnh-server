@@ -10,7 +10,8 @@ var userSchema = new Schema({
     email: { type: String, required: true },
     telefone: String,
     celular: String,
-    whatsapp: Boolean
+    whatsapp: Boolean,
+    valorMensalidade: String
 });
 
 var User = mongoose.model('User', userSchema);

@@ -14,7 +14,8 @@ function SaveUser(user) {
         email: user.Email,
         telefone: user.Telefone,
         celular: user.Celular,
-        whatsapp: user.Whatsapp
+        whatsapp: user.Whatsapp,
+        valorMensalidade: user.valorMensalidade
     });
 
     console.log(newUser);
