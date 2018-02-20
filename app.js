@@ -2,7 +2,8 @@ var bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
 const email = require('./email/email.js');
-const user = require('./user/user.js')
+const user = require('./user/user.js');
+const loggedUser = require('./loggedUser/loggedUser.js');
 const common = require('./common/util.js');
 
 var dbConnection = require('./dbconnection/dbconnection.js')
@@ -27,13 +28,20 @@ app.get('/', function (req, res, next) {
 app.post('/email', function (req, res, next) {
   var json = req.body;
   var Email = new email.Email(json.email, json.subject, json.message, 'Coral Jovem Novo Hamburgo');
-  Email.send().then(x => {res.send(common.ResolveStatus(x))}).catch(x => res.send(common.ResolveStatus(x)));
+  Email.send().then(x => { res.send(common.ResolveStatus(x)) }).catch(x => res.send(common.ResolveStatus(x)));
 });
 
 app.post('/user', function (req, res, next) {
   var newUser = req.body;
   console.log(newUser);
-  user.SaveUser(newUser).then(x => {res.send(common.ResolveStatus(x))}).catch(x => res.send(common.ResolveStatus(x)));
+  user.SaveUser(newUser).then(x => { res.send(common.ResolveStatus(x)) }).catch(x => res.send(common.ResolveStatus(x)));
+});
+
+app.post('/login', function (req, res) {
+  console.log(req.body);
+  var user = req.body;
+  console.log(user.Username);
+  loggedUser.authenticate(user);
 });
 
 dbConnection.connectDatabase();

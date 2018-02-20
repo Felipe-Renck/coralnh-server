@@ -27,9 +27,7 @@ function SaveUser(user) {
                 console.log(err);
                 res("500");
             }
-
             res("200");
-
             console.log('User created!');
         });
     });
