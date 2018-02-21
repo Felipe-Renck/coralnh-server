@@ -3,10 +3,13 @@ const express = require('express');
 const app = express();
 const email = require('./email/email.js');
 const user = require('./user/user.js');
-const loggedUser = require('./loggedUser/loggedUser.js');
 const common = require('./common/util.js');
+var User = require('./models/User.js');
+var jwt	 = require('jsonwebtoken');
+var config = require('./config'); // get our config file
 
-var dbConnection = require('./dbconnection/dbconnection.js')
+var dbConnection = require('./dbconnection/dbconnection.js');
+app.set('secretString', config.secretString); // secret variable
 
 var port = process.env.PORT || 8080;
 // parse application/x-www-form-urlencoded
@@ -38,10 +41,46 @@ app.post('/user', function (req, res, next) {
 });
 
 app.post('/login', function (req, res) {
-  console.log(req.body);
-  var user = req.body;
-  console.log(user.Username);
-  loggedUser.authenticate(user);
+
+  var loggedUser = req.body;
+  console.log(loggedUser.Email);
+  // find the user
+  User.findOne({
+    email: loggedUser.Email
+  }, function (err, user) {
+    if (err) throw err;
+
+    console.log(user);
+
+    if (!user) {
+      res.status(401);
+      res.json({ success: false, message: 'Usuário não cadastrado' });
+    } 
+    else if (user) {
+      // check if password matches
+      if (user.password != loggedUser.Password) {
+        res.status(401);
+        res.json({ success: false, message: 'Senha incorreta' });
+      } else {
+
+				var payload = {
+					Email: user.email	
+				}
+				var token = jwt.sign(payload, app.get('secretString'), {
+          expiresIn: 60 // expira em 60 segundos = 1 minuto (Tempo em segundos)
+        });
+        
+        res.status(200);
+        res.json({
+          success: true,
+          message: 'Autenticado',
+          token: token
+        });
+      }
+
+    }
+
+  });
 });
 
 dbConnection.connectDatabase();
