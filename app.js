@@ -2,10 +2,14 @@ var bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
 const email = require('./email/email.js');
-const user = require('./user/user.js')
+const user = require('./user/user.js');
 const common = require('./common/util.js');
+var User = require('./models/User.js');
+var jwt	 = require('jsonwebtoken');
+var config = require('./config'); // get our config file
 
-var dbConnection = require('./dbconnection/dbconnection.js')
+var dbConnection = require('./dbconnection/dbconnection.js');
+app.set('secretString', config.secretString); // secret variable
 
 var port = process.env.PORT || 8080;
 // parse application/x-www-form-urlencoded

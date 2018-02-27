@@ -35,9 +35,7 @@ function SaveUser(user) {
                     res("500");
                 }
             }
-
             res("200");
-
             console.log('User created!');
         });
     });
