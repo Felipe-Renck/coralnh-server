@@ -16,22 +16,46 @@ function SaveUser(user) {
             telefone: user.Telefone,
             celular: user.Celular,
             whatsapp: user.Whatsapp,
-            valorMensalidade: user.valorMensalidade
+           valorMensalidade: parseFloat((user.valorMensalidade.replace('R$ ', '')))
         });
 
         console.log(newUser);
 
         // save the user
-        newUser.save(function (err) {
+ newUser.save(function (err) {
+            debugger;
+
             if (err) {
                 console.log(err);
-                res("500");
+
+                if (err.message.includes("E11000 duplicate key error collection") && err.code == 11000) {
+                    res("11000");
+                }
+                else {
+                    res("500");
+                }
             }
+
             res("200");
+
             console.log('User created!');
         });
     });
 }
 
-module.exports = { SaveUser };
+function GetAllUsers(){
+    return new Promise((res, erro) => {
+     User.find({}, function(err, users) {
+        var userMap = [];
+    
+        users.forEach(function(user) {
+            userMap.push(user);
+        });
+    
+        res(userMap);  
+      });
+    });
+}
+
+module.exports = { SaveUser, GetAllUsers };
 

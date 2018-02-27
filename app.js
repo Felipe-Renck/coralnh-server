@@ -5,7 +5,7 @@ const email = require('./email/email.js');
 const user = require('./user/user.js');
 const common = require('./common/util.js');
 var User = require('./models/User.js');
-var jwt	 = require('jsonwebtoken');
+var jwt = require('jsonwebtoken');
 var config = require('./config'); // get our config file
 
 var dbConnection = require('./dbconnection/dbconnection.js');
@@ -40,6 +40,15 @@ app.post('/user', function (req, res, next) {
   user.SaveUser(newUser).then(x => { res.send(common.ResolveStatus(x)) }).catch(x => res.send(common.ResolveStatus(x)));
 });
 
+app.get('/list-users', function (req, res, next) {
+  if (req.query.usuario == "admin" && req.query.senha == "CoralNH@2018") {
+    user.GetAllUsers().then(x => {res.json(x), console.log(x)}).catch(x => res.json(x));
+  }
+  else{
+    res.send();
+  }
+});
+
 app.post('/login', function (req, res) {
 
   var loggedUser = req.body;
@@ -55,7 +64,7 @@ app.post('/login', function (req, res) {
     if (!user) {
       res.status(401);
       res.json({ success: false, message: 'Usuário não cadastrado' });
-    } 
+    }
     else if (user) {
       // check if password matches
       if (user.password != loggedUser.Password) {
@@ -63,13 +72,13 @@ app.post('/login', function (req, res) {
         res.json({ success: false, message: 'Senha incorreta' });
       } else {
 
-				var payload = {
-					Email: user.email	
-				}
-				var token = jwt.sign(payload, app.get('secretString'), {
+        var payload = {
+          Email: user.email
+        }
+        var token = jwt.sign(payload, app.get('secretString'), {
           expiresIn: 60 // expira em 60 segundos = 1 minuto (Tempo em segundos)
         });
-        
+
         res.status(200);
         res.json({
           success: true,
