@@ -94,7 +94,7 @@ app.post('/login', function (req, res) {
   });
 });
 
-app.listen(3002, function () {
-  console.log('Vertical Web app service listening on 3002');
+app.listen(port, function () {
+  console.log('Vertical Web app service listening on port ' + port);
 });
 
