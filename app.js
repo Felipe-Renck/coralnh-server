@@ -27,13 +27,13 @@ app.get('/', function (req, res, next) {
 app.post('/email', function (req, res, next) {
   var json = req.body;
   var Email = new email.Email(json.email, json.subject, json.message, 'Coral Jovem Novo Hamburgo');
-  Email.send().then(x => {res.send(common.ResolveStatus(x))}).catch(x => res.send(common.ResolveStatus(x)));
+  Email.send().then(x => {res.send(common.ResolveStatusEmail(x))}).catch(x => res.send(common.ResolveStatusEmail(x)));
 });
 
 app.post('/user', function (req, res, next) {
   var newUser = req.body;
   console.log(newUser);
-  user.SaveUser(newUser).then(x => {res.send(common.ResolveStatus(x))}).catch(x => res.send(common.ResolveStatus(x)));
+  user.SaveUser(newUser).then(x => {res.send(common.ResolveStatusMongo(x))}).catch(x => res.send(common.ResolveStatusMongo(x)));
 });
 
 dbConnection.connectDatabase();
