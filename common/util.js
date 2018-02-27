@@ -1,9 +1,9 @@
-function ResolveStatus(result){
+function ResolveStatusEmail(result){
     debugger;
-    if(result.accepted != undefined || result == "200"){
+    if(result.accepted != undefined){
         return 200;
     }
-    else if (result.rejected != undefined || result != "200") {
+    else if (result.rejected != undefined) {
         return 500;
     }
     else{
@@ -11,4 +11,20 @@ function ResolveStatus(result){
     }
 }
 
-module.exports = { ResolveStatus }
+function ResolveStatusMongo(result){
+    debugger;
+    if (result == "11000"){
+        return "11000";
+    }
+    else if(result == "200"){
+        return "200";
+    }
+    else if (result == "500") {
+        return "500";
+    }
+    else{
+        return "404";
+    }
+}
+
+module.exports = { ResolveStatusEmail, ResolveStatusMongo }

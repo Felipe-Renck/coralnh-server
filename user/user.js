@@ -16,13 +16,13 @@ function SaveUser(user) {
             telefone: user.Telefone,
             celular: user.Celular,
             whatsapp: user.Whatsapp,
-           valorMensalidade: parseFloat((user.valorMensalidade.replace('R$ ', '')))
+            valorMensalidade: parseFloat((user.valorMensalidade.replace('R$ ', '')))
         });
 
         console.log(newUser);
 
         // save the user
- newUser.save(function (err) {
+        newUser.save(function (err) {
             debugger;
 
             if (err) {
@@ -43,17 +43,17 @@ function SaveUser(user) {
     });
 }
 
-function GetAllUsers(){
+function GetAllUsers() {
     return new Promise((res, erro) => {
-     User.find({}, function(err, users) {
-        var userMap = [];
-    
-        users.forEach(function(user) {
-            userMap.push(user);
+        User.find({}, function (err, users) {
+            var userMap = [];
+
+            users.forEach(function (user) {
+                userMap.push(user);
+            });
+
+            res(userMap);
         });
-    
-        res(userMap);  
-      });
     });
 }
 
