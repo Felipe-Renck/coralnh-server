@@ -9,11 +9,11 @@ function SaveInscricao(inscricao) {
 
             console.log(inscricao);
             var inscricaoEventoModel = InscricaoEvento({
-                nome: inscricao.Nome,
+                nome: inscricao.Nome.toLowerCase(),
                 RG: inscricao.RG,
-                automovel: inscricao.Automovel,
-                local_evento: inscricao.LocalEvento,
-                data_evento: inscricao.DataEvento
+                automovel: inscricao.Automovel.toLowerCase(),
+                local_evento: inscricao.LocalEvento.toLowerCase(),
+                data_evento: inscricao.DataEvento.toLowerCase()
             });
 
             console.log(inscricaoEventoModel);
