@@ -77,7 +77,7 @@ app.post('/login', function (req, res) {
           Email: user.toObject().email
         }
         var token = jwt.sign(payload, app.get('secretString'), {
-          expiresIn: 60 // expira em 60 segundos = 1 minuto (Tempo em segundos)
+          expiresIn: 1800 // expira em 60 segundos = 1 minuto (Tempo em segundos)
         });
 
         res.status(200);
@@ -85,7 +85,8 @@ app.post('/login', function (req, res) {
           success: true,
           message: 'Autenticado',
           isAdmin: user.toObject().isAdmin == undefined ? false : true,
-          token: token
+          token: token,
+          username: user.toObject().nome
         });
       }
     }
