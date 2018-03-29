@@ -10,6 +10,8 @@ var Evento_Inscricao_Model = require('./models/Evento_Inscricao_Model.js');
 var jwt = require('jsonwebtoken');
 var config = require('./config'); // get our config file
 
+
+
 var dbConnection = require('./dbconnection/dbconnection.js');
 app.set('secretString', config.secretString); // secret variable
 
@@ -45,7 +47,6 @@ app.post('/user', function (req, res, next) {
 });
 
 app.post('/evento', function (req, res, next) {
-  console.log('POST EVENTO ');
   var inscricao_evento = req.body;
   evento_inscricao.SaveInscricao(inscricao_evento).then(x => { res.send(common.ResolveStatusMongo(x)) }).catch(x => res.send(common.ResolveStatusMongo(x)));
 });
@@ -57,6 +58,10 @@ app.get('/list-users', function (req, res, next) {
   else {
     res.send();
   }
+});
+
+app.get('/inscritos', function (req, res, next) {
+    evento_inscricao.CountInscritos().then(x => { res.json(x), console.log(x) }).catch(x => res.json(x));
 });
 
 app.post('/login', function (req, res) {

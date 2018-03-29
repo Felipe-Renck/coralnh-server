@@ -34,4 +34,18 @@ function SaveInscricao(inscricao) {
     });
 }
 
-module.exports = { SaveInscricao };
+function CountInscritos() {
+    console.log("CountInscritos");
+    return new Promise((res, erro) => {
+        InscricaoEvento.count({automovel:"onibus"}, function (err, count) {
+            if(err){
+                console.log(err);
+            }
+            res(count);
+        });
+    });
+
+    
+}
+
+module.exports = { SaveInscricao, CountInscritos };
