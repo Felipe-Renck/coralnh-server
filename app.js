@@ -60,8 +60,14 @@ app.get('/list-users', function (req, res, next) {
   }
 });
 
+app.get('/userData', function (req, res, next) {
+  console.log("SERVICO /USERDATA");
+  console.log(req.query);
+  user.GetUser(req.query.RG).then(response => { res.json(response), console.log(response) }).catch(response => res.json(response));
+});
+
 app.get('/inscritos', function (req, res, next) {
-    evento_inscricao.CountInscritos().then(x => { res.json(x), console.log(x) }).catch(x => res.json(x));
+  evento_inscricao.CountInscritos().then(x => { res.json(x), console.log(x) }).catch(x => res.json(x));
 });
 
 app.post('/login', function (req, res) {

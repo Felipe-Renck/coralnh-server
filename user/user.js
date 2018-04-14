@@ -57,5 +57,14 @@ function GetAllUsers() {
     });
 }
 
-module.exports = { SaveUser, GetAllUsers };
+function GetUser(RG){
+    return new Promise((res, erro) => {
+        User.find({'RG':RG}, function (err, user) {
+
+            res(user);
+        });
+    });
+}
+
+module.exports = { SaveUser, GetAllUsers, GetUser};
 
