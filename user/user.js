@@ -60,7 +60,6 @@ function GetAllUsers() {
 function GetUser(RG){
     return new Promise((res, erro) => {
         User.find({'RG':RG}, function (err, user) {
-
             res(user);
         });
     });

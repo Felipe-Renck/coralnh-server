@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var InscricaoEvento = new Schema({
     nome: { type: String, required: true },
-    RG: { type: Number, unique: true },
+    RG: { type: Number},
     automovel: { type: String },
     local_evento: { type: String },
     data_evento: Date

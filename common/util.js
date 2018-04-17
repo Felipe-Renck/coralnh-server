@@ -12,7 +12,6 @@ function ResolveStatusEmail(result){
 }
 
 function ResolveStatusMongo(result){
-    debugger;
     if (result == "11000"){
         return "11000";
     }
