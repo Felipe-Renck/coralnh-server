@@ -11,7 +11,7 @@ function SaveInscricao(inscricao) {
             var inscricaoEventoModel = InscricaoEvento({
                 nome: inscricao.Nome.toLowerCase(),
                 RG: inscricao.RG,
-                automovel: inscricao.Automovel.toLowerCase(),
+                automovel: automovel == undefined ? "" : inscricao.Automovel.toLowerCase(),
                 local_evento: inscricao.LocalEvento.toLowerCase(),
                 data_evento: inscricao.DataEvento.toLowerCase()
             });
