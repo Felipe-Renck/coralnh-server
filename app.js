@@ -68,7 +68,7 @@ app.get('/userData', function (req, res, next) {
 });
 
 app.get('/inscritos', function (req, res, next) {
-  evento_inscricao.CountInscritos().then(x => { res.json(x), console.log(x) }).catch(x => res.json(x));
+  evento_inscricao.CountInscritos().then(x => { res.json(x), console.log(x) });
 });
 
 app.post('/login', function (req, res) {

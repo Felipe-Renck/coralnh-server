@@ -5,47 +5,41 @@ var User = require('../models/User.js');
 function SaveInscricao(inscricao) {
 
     return new Promise((res, erro) => {
-        User.find({ 'RG': inscricao.RG }).exec().then(function () {
+        console.log(inscricao);
+        var inscricaoEventoModel = InscricaoEvento({
+            nome: inscricao.Nome.toLowerCase(),
+            RG: inscricao.RG,
+            automovel: inscricao.Automovel.toLowerCase(),
+            local_evento: inscricao.LocalEvento.toLowerCase(),
+            data_evento: inscricao.DataEvento.toLowerCase()
+        });
 
-            console.log(inscricao);
-            var inscricaoEventoModel = InscricaoEvento({
-                nome: inscricao.Nome.toLowerCase(),
-                RG: inscricao.RG,
-                automovel: automovel == undefined ? "" : inscricao.Automovel.toLowerCase(),
-                local_evento: inscricao.LocalEvento.toLowerCase(),
-                data_evento: inscricao.DataEvento.toLowerCase()
-            });
+        console.log(inscricaoEventoModel);
+        inscricaoEventoModel.save(function (erro) {
+            if (erro) {
+                console.log(erro);
+                res("500");
+            }
+            else {
+                res("200");
+                console.log('Inscricão confirmada!');
+            }
 
-            console.log(inscricaoEventoModel);
-            inscricaoEventoModel.save(function (erro) {
-                debugger;
-
-                if (erro) {
-                    console.log(erro);
-                    res("500");
-                }
-                else {
-                    res("200");
-                    console.log('Inscricão confirmada!');
-                }
-
-            });
         });
     });
 }
 
 function CountInscritos() {
-    console.log("CountInscritos");
     return new Promise((res, erro) => {
-        InscricaoEvento.count({automovel:"onibus"}, function (err, count) {
-            if(err){
+        InscricaoEvento.count({ automovel: "onibus", local_evento: "são leopoldo" }, function (err, count) {
+            if (err) {
                 console.log(err);
             }
             res(count);
         });
     });
 
-    
+
 }
 
 module.exports = { SaveInscricao, CountInscritos };
