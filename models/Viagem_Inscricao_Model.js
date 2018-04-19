@@ -10,7 +10,6 @@ var InscricaoViagem = new Schema({
     parcela: { type: Number },
     responsavel:{type : String},
     local_evento: { type: String },
-    data_evento: Date
 });
 
 var InscricaoViagem = mongoose.model('InscricaoViagem', InscricaoViagem);
