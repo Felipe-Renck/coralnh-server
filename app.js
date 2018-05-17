@@ -48,7 +48,7 @@ app.post('/user', function (req, res, next) {
 });
 
 app.post('/evento', function (req, res, next) {
-  var inscricao_viagem = req.body;
+  var inscricao_evento = req.body;
   evento_inscricao.SaveInscricao(inscricao_evento).then(x => { res.send(common.ResolveStatusMongo(x)) }).catch(x => res.send(common.ResolveStatusMongo(x)));
 });
 
