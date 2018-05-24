@@ -31,7 +31,7 @@ function SaveInscricao(inscricao) {
 
 function CountInscritos() {
     return new Promise((res, erro) => {
-        InscricaoEvento.count({ automovel: "onibus", local_evento: "são leopoldo" }, function (err, count) {
+        InscricaoEvento.count({ automovel: "onibus", local_evento: "caxias do sul" }, function (err, count) {
             if (err) {
                 console.log(err);
             }
