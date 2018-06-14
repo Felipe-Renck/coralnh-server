@@ -53,7 +53,6 @@ app.post('/evento', function (req, res, next) {
 });
 
 app.post('/viagem', function (req, res, next) {
-  console.log("SERVICE VIAGEM");
   var inscricao_viagem = req.body;
   console.log("inscricao_viagem" + inscricao_viagem);
   viagem_inscricao.SaveInscricaoViagem(inscricao_viagem).then(x => { res.send(common.ResolveStatusMongo(x)) }).catch(x => res.send(common.ResolveStatusMongo(x)));
@@ -61,6 +60,7 @@ app.post('/viagem', function (req, res, next) {
 
 app.get('/list-users', function (req, res, next) {
   if (req.query.usuario == "admin" && req.query.senha == "CoralNH@2018") {
+    console.log("ENTROU");
     user.GetAllUsers().then(x => { res.json(x), console.log(x) }).catch(x => res.json(x));
   }
   else {
